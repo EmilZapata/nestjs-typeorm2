@@ -1,16 +1,16 @@
 import {
+  Body,
   Controller,
+  Delete,
   Get,
   Param,
-  Post,
-  Body,
-  Put,
-  Delete,
   ParseIntPipe,
+  Post,
+  Put,
 } from '@nestjs/common';
 
-import { UsersService } from '../services/users.service';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
+import { UsersService } from '../services/users.service';
 
 @Controller('users')
 export class UsersController {
@@ -19,6 +19,11 @@ export class UsersController {
   @Get()
   findAll() {
     return this.usersService.findAll();
+  }
+
+  @Get('tasks')
+  getTasks() {
+    return this.usersService.getTasks();
   }
 
   @Get(':id')
