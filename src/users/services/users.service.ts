@@ -2,7 +2,6 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
-import { Order } from '../entities/order.entity';
 import { User } from '../entities/user.entity';
 
 import { Client } from 'pg';
@@ -70,12 +69,13 @@ export class UsersService {
     return true;
   }
 
-  getOrderByUser(id: number): Order {
+  async getOrderByUser(id: number) {
     const user = this.findOne(id);
+    const products = await this.productsService.findAll();
     return {
       date: new Date(),
       user,
-      products: this.productsService.findAll(),
+      products,
     };
   }
 
