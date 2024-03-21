@@ -23,3 +23,4 @@ export class User {
   })
   role: string;
 }
+Reflect.decorate;

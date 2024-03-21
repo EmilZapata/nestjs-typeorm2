@@ -19,7 +19,7 @@ import { CategoriesService } from './services/categories.service';
   imports: [
     TypeOrmModule.forFeature(
       [Product, Brand, Category],
-      CONNECTION_DB.MYSQL_DB,
+      CONNECTION_DB.POSTGRES_DB,
     ),
   ],
   controllers: [ProductsController, CategoriesController, BrandsController],

@@ -21,7 +21,9 @@ export class ProductsService {
   }
 
   async findOne(id: number) {
-    const product = await this.productRepository.findOne(id);
+    const product = await this.productRepository.findOne({
+      where: { id: id },
+    });
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
     }
@@ -41,7 +43,7 @@ export class ProductsService {
   }
 
   async update(id: number, changes: UpdateProductDto) {
-    const product = await this.productRepository.findOne(id);
+    const product = await this.productRepository.findOne({ where: { id } });
     this.productRepository.merge(product, changes);
     return this.productRepository.save(product);
   }

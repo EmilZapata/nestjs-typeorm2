@@ -1,6 +1,8 @@
-import { HttpModule, HttpService, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
+import { HttpModule, HttpService } from '@nestjs/axios';
+import { lastValueFrom } from 'rxjs';
 import configSchema from 'src/shared/config/configSchema';
 import configLoad from 'src/shared/config/loadConfig';
 import { AppController } from './app.controller';
@@ -29,9 +31,8 @@ import { UsersModule } from './users/users.module';
     {
       provide: 'TASKS',
       useFactory: async (http: HttpService) => {
-        const tasks = await http
-          .get('https://jsonplaceholder.typicode.com/todos')
-          .toPromise();
+        const request = http.get('https://jsonplaceholder.typicode.com/todos');
+        const tasks = await lastValueFrom(request);
         return tasks.data;
       },
       inject: [HttpService],

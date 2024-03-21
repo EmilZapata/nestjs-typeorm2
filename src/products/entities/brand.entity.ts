@@ -9,7 +9,7 @@ export class Brand {
   id: number;
   @Column({
     type: 'varchar',
-    length: '255',
+    length: '230',
   })
   name: string;
   @Column({
