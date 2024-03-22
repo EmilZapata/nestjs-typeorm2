@@ -1,5 +1,11 @@
 import { TABLE_NAMES } from 'src/database/table.names';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity({
   name: TABLE_NAMES.PRODUCT,
@@ -17,4 +23,15 @@ export class Product {
   stock: number;
   @Column({ type: 'varchar' })
   image: string;
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updateAt: Date;
 }

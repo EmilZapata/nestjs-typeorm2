@@ -29,6 +29,7 @@ const API_KEY_PROD = 'PROD1212121SA';
           database: dbName,
           // synchronize: true,
           // autoLoadEntities: true,
+          entities: [__dirname + 'src/../**/*.entity.{js,ts}'],
         };
       },
     }),
@@ -47,6 +48,7 @@ const API_KEY_PROD = 'PROD1212121SA';
           database: dbName,
           // synchronize: true,
           // autoLoadEntities: true,
+          entities: [__dirname + 'src/../**/*.entity.{js,ts}'],
         };
       },
     }),

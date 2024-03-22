@@ -12,7 +12,7 @@ import { Product } from './../entities/product.entity';
 @Injectable()
 export class ProductsService {
   constructor(
-    @InjectRepository(Product, CONNECTION_DB.MYSQL_DB)
+    @InjectRepository(Product, CONNECTION_DB.POSTGRES_DB)
     private productRepository: Repository<Product>,
   ) {}
 
