@@ -1,9 +1,11 @@
 import { TABLE_NAMES } from 'src/database/table.names';
+import { Order } from 'src/users/entities/order.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -32,9 +34,6 @@ export class Customer {
   })
   phone: string;
 
-  @OneToOne(() => User, (user) => user.customer, { nullable: true })
-  user: User;
-
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
@@ -45,4 +44,10 @@ export class Customer {
     default: () => 'CURRENT_TIMESTAMP',
   })
   updateAt: Date;
+
+  @OneToOne(() => User, (user) => user.customer, { nullable: true })
+  user: User;
+
+  @OneToMany(() => Order, (order) => order.customer)
+  orders: Order[];
 }

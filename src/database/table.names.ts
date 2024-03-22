@@ -4,5 +4,6 @@ export enum TABLE_NAMES {
   BRAND = 'brand',
   USER = 'user',
   ORDER = 'order',
+  ORDER_ITEM = 'order_item',
   CUSTOMER = 'customer',
 }
