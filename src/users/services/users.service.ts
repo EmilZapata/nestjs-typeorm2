@@ -5,6 +5,7 @@ import { User } from '../entities/user.entity';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { CONNECTION_DB } from 'src/database/databases-name.contant';
+import { CustomersService } from 'src/users/services/customers.service';
 import { Repository } from 'typeorm';
 import { ProductsService } from './../../products/services/products.service';
 
@@ -14,10 +15,15 @@ export class UsersService {
     private productsService: ProductsService,
     @InjectRepository(User, CONNECTION_DB.POSTGRES_DB)
     private userRepository: Repository<User>,
+    private customersService: CustomersService,
   ) {}
 
   findAll() {
-    return this.userRepository.find();
+    return this.userRepository.find({
+      relations: {
+        customer: true,
+      },
+    });
   }
 
   findOne(id: number) {
@@ -28,8 +34,14 @@ export class UsersService {
     return user;
   }
 
-  create(data: CreateUserDto) {
+  async create(data: CreateUserDto) {
     const entityUser = this.userRepository.create(data);
+
+    if (data.customerId) {
+      const customer = await this.customersService.findOne(data.customerId);
+      entityUser.customer = customer;
+    }
+
     return this.userRepository.save(entityUser);
   }
 
