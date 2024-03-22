@@ -13,7 +13,9 @@ import {
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import {
+  AddCategoriesProductDto,
   CreateProductDto,
+  DeleteCategoriesProductDto,
   UpdateProductDto,
 } from 'src/products/dtos/products.dtos';
 import { ParseIntPipe } from '../../common/parse-int.pipe';
@@ -58,8 +60,24 @@ export class ProductsController {
     return this.productsService.update(id, payload);
   }
 
+  @Put(':id/categories')
+  addCategories(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: AddCategoriesProductDto,
+  ) {
+    return this.productsService.addCategories(id, payload.categoriesIds);
+  }
+
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.remove(id);
+  }
+
+  @Delete(':id/categories')
+  deleteCategories(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: DeleteCategoriesProductDto,
+  ) {
+    return this.productsService.removeCategories(id, payload.categoriesIds);
   }
 }

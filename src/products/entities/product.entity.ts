@@ -1,7 +1,14 @@
 import { BaseEntity } from 'src/common/base/base-entity';
 import { TABLE_NAMES } from 'src/database/table.names';
 import { Brand } from 'src/products/entities/brand.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Category } from 'src/products/entities/category.entity';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({
   name: TABLE_NAMES.PRODUCT,
@@ -22,4 +29,7 @@ export class Product extends BaseEntity {
 
   @ManyToOne(() => Brand, (brand) => brand.products)
   brand: Brand;
+
+  @ManyToMany(() => Category, (category) => category.products)
+  categories: Category[];
 }

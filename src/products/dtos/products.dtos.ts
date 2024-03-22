@@ -1,5 +1,6 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
+  IsArray,
   IsNotEmpty,
   IsNumber,
   IsPositive,
@@ -33,6 +34,30 @@ export class CreateProductDto {
   @IsNotEmpty()
   @ApiProperty({ description: `Imagen del producto` })
   readonly image: string;
+
+  @IsPositive()
+  @IsNotEmpty()
+  @ApiProperty({ description: `Marca del producto` })
+  readonly brandId: number;
+
+  @IsArray()
+  @IsNotEmpty()
+  @ApiProperty({ description: `Categorias del producto` })
+  readonly categoriesIds: number[];
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {}
+
+export class DeleteCategoriesProductDto {
+  @IsArray()
+  @IsNotEmpty()
+  @ApiProperty({
+    description: `Categorias a eliminar/agregar del producto`,
+    type: [Number],
+  })
+  readonly categoriesIds: number[];
+}
+
+export class AddCategoriesProductDto extends PartialType(
+  DeleteCategoriesProductDto,
+) {}
