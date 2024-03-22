@@ -17,8 +17,8 @@ export class BrandsService {
     return this.brandRepository.find();
   }
 
-  findOne(id: number) {
-    const product = this.brandRepository.findOne({
+  async findOne(id: number) {
+    const product = await this.brandRepository.findOne({
       where: { id },
       relations: {
         products: true,

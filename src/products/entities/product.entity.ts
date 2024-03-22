@@ -5,14 +5,18 @@ import { Category } from 'src/products/entities/category.entity';
 import {
   Column,
   Entity,
+  Index,
+  JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity({
-  name: TABLE_NAMES.PRODUCT,
+  name: TABLE_NAMES.PRODUCTS,
 })
+@Index(['price', 'stock'])
 export class Product extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -20,16 +24,28 @@ export class Product extends BaseEntity {
   name: string;
   @Column({ type: 'text' })
   description: string;
+
   @Column({ type: 'int' })
   price: number;
+
   @Column({ type: 'int' })
   stock: number;
   @Column({ type: 'varchar' })
   image: string;
 
   @ManyToOne(() => Brand, (brand) => brand.products)
+  @JoinColumn({ name: 'brand_id' })
   brand: Brand;
 
   @ManyToMany(() => Category, (category) => category.products)
+  @JoinTable({
+    name: 'products_has_categories',
+    joinColumn: {
+      name: 'product_id',
+    },
+    inverseJoinColumn: {
+      name: 'category_id',
+    },
+  })
   categories: Category[];
 }

@@ -30,28 +30,29 @@ const API_KEY_PROD = 'PROD1212121SA';
           // synchronize: true,
           // autoLoadEntities: true,
           entities: [__dirname + 'src/../**/*.entity.{js,ts}'],
+          logging: true,
         };
       },
     }),
-    TypeOrmModule.forRootAsync({
-      inject: [configLoad.KEY],
-      name: CONNECTION_DB.MYSQL_DB,
-      useFactory: (configService: ConfigType<typeof configLoad>) => {
-        const { dbName, host, password, port, user } = configService.mysql;
+    // TypeOrmModule.forRootAsync({
+    //   inject: [configLoad.KEY],
+    //   name: CONNECTION_DB.MYSQL_DB,
+    //   useFactory: (configService: ConfigType<typeof configLoad>) => {
+    //     const { dbName, host, password, port, user } = configService.mysql;
 
-        return {
-          type: TYPE_DATABASE.MYSQL,
-          host,
-          port,
-          username: user,
-          password,
-          database: dbName,
-          // synchronize: true,
-          // autoLoadEntities: true,
-          entities: [__dirname + 'src/../**/*.entity.{js,ts}'],
-        };
-      },
-    }),
+    //     return {
+    //       type: TYPE_DATABASE.MYSQL,
+    //       host,
+    //       port,
+    //       username: user,
+    //       password,
+    //       database: dbName,
+    //       // synchronize: true,
+    //       // autoLoadEntities: true,
+    //       entities: [__dirname + 'src/../**/*.entity.{js,ts}'],
+    //     };
+    //   },
+    // }),
   ],
   providers: [
     {

@@ -16,6 +16,7 @@ import {
   AddCategoriesProductDto,
   CreateProductDto,
   DeleteCategoriesProductDto,
+  FilterProductsDto,
   UpdateProductDto,
 } from 'src/products/dtos/products.dtos';
 import { ParseIntPipe } from '../../common/parse-int.pipe';
@@ -28,12 +29,8 @@ export class ProductsController {
 
   @Get()
   @ApiOperation({ summary: 'List of products' })
-  getProducts(
-    @Query('limit') limit = 100,
-    @Query('offset') offset = 0,
-    @Query('brand') brand: string,
-  ) {
-    return this.productsService.findAll();
+  getProducts(@Query() params: FilterProductsDto) {
+    return this.productsService.findAll(params);
   }
 
   @Get('filter')

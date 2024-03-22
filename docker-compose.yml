@@ -11,15 +11,15 @@ services:
       - '5432:5432'
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
-  mysql:
-    image: mysql:5
-    environment:
-      - MYSQL_DATABASE=my_db
-      - MYSQL_ROOT_PASSWORD=123456
-    ports:
-      - '3306:3306'
-    volumes:
-      - ./mysql_data:/var/lib/mysql
+  # mysql:
+  #   image: mysql:5
+  #   environment:
+  #     - MYSQL_DATABASE=my_db
+  #     - MYSQL_ROOT_PASSWORD=123456
+  #   ports:
+  #     - '3306:3306'
+  #   volumes:
+  #     - ./mysql_data:/var/lib/mysql
 
   # pgadmin:
   #   image: dpage/pgadmin4

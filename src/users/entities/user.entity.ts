@@ -1,19 +1,18 @@
+import { BaseEntity } from 'src/common/base/base-entity';
 import { TABLE_NAMES } from 'src/database/table.names';
 import { Customer } from 'src/users/entities/customer.entity';
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity({
   name: TABLE_NAMES.USER,
 })
-export class User {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -36,17 +35,8 @@ export class User {
   role: string;
 
   @OneToOne(() => Customer, (customer) => customer.user, { nullable: true })
-  @JoinColumn()
+  @JoinColumn({
+    name: 'customer_id',
+  })
   customer: Customer;
-
-  @CreateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
-  createAt: Date;
-  @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
-  updateAt: Date;
 }

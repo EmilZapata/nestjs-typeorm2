@@ -7,7 +7,6 @@ import { UsersService } from './services/users.service';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CONNECTION_DB } from 'src/database/databases-name.contant';
-import { Product } from 'src/products/entities/product.entity';
 import { OrderItemController } from 'src/users/controllers/order-item.controller';
 import { Customer } from 'src/users/entities/customer.entity';
 import { OrderItem } from 'src/users/entities/order-item.entity';
@@ -21,7 +20,7 @@ import { OrdersService } from './services/orders.service';
 @Module({
   imports: [
     TypeOrmModule.forFeature(
-      [Customer, User, OrderItem, Order, Product],
+      [Customer, User, OrderItem, Order],
       CONNECTION_DB.POSTGRES_DB,
     ),
     ProductsModule,
